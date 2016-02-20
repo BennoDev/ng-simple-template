@@ -1,6 +1,6 @@
 ##ng-Simple-Template
 
-This repo is a simple template from which you can start making simple AngularJS applications
+This repo is a simple template from which you can start making simple AngularJS applications.
 
 ___
 
