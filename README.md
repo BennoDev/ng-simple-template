@@ -7,7 +7,7 @@ ___
 ####Getting started
 
 - Make sure nodejs is installed.
-- After pulling the repo, run `npm install` in your command prompt in the repo containing `package.json`.
+- After pulling the repo, run `npm install` in your command prompt in the folder containing `package.json`.
 - Make sure you have gulp globally installed, to do this run `npm install gulp -g`.
  
 ####Gulp
