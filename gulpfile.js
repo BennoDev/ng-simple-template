@@ -19,6 +19,13 @@ gulp.task("js", function() {
 		    .pipe(uglify())
 		.pipe(sourcemaps.write())
 	    .pipe(gulp.dest("dist"))
+
+    gulp.src(["assets/js/*"])
+    	.pipe(sourcemaps.init())
+    		.pipe(concat("vendor.js"))
+			.pipe(uglify())
+		.pipe(sourcemaps.write())
+		.pipe(gulp.dest("dist"))
 });
 
 
