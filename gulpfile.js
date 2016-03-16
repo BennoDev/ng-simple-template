@@ -58,7 +58,7 @@ gulp.task("build", function() {
 // ----------------------------------------------------------------------------------------- //
 gulp.task("watch", function() {
 
-  	gulp.watch(["app/config.js", "app/app.js", "app/routes.js", "app/controllers/*.js", "app/services/*.js"], batch(function(events, done) {
+  	gulp.watch(["app/config.js", "app/app.js", "app/routes.js", "app/controllers/*.js", "app/services/*.js", "app/directives/*/*.js"], batch(function(events, done) {
   		gulp.start("js", done);
 	}));
 
