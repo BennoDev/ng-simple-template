@@ -2,6 +2,7 @@ var gulp = require("gulp");
 var concat = require("gulp-concat");
 var uglify = require("gulp-uglify");
 var batch = require("gulp-batch");
+var plumber = require("gulp-plumber");
 var ngAnnotate = require("gulp-ng-annotate");
 var sourcemaps = require("gulp-sourcemaps");
 var cssnano = require("gulp-cssnano");
@@ -13,19 +14,31 @@ var cssnano = require("gulp-cssnano");
 gulp.task("js", function() {
 
   	gulp.src(["app/app.js", "app/config.js", "app/routes.js", "app/controllers/*.js", "app/services/*.js", "app/directives/*/*.js"])
+	  	.pipe(plumber({
+	        handleError: function (err) {
+	            console.log(err);
+	            this.emit('end');
+	        }
+	    }))
 	    .pipe(sourcemaps.init())
-		    .pipe(concat("scripts.js"))
 		    .pipe(ngAnnotate())
+		    .pipe(concat("scripts.js"))
 		    .pipe(uglify())
 		.pipe(sourcemaps.write())
 	    .pipe(gulp.dest("dist"))
 
-    gulp.src(["assets/js/*"])
-    	.pipe(sourcemaps.init())
-    		.pipe(concat("vendor.js"))
-			.pipe(uglify())
-		.pipe(sourcemaps.write())
-		.pipe(gulp.dest("dist"))
+  	// 	gulp.src(["assets/js/*"])
+  	//   	.pipe(plumber({
+  	//     		handleError: function (err) {
+    //         		console.log(err);
+    //         		this.emit('end');
+    //     		}
+    // 		}))
+  	//   	.pipe(sourcemaps.init())
+  	//   	.pipe(concat("vendor.js"))
+	// 		.pipe(uglify())
+	// 	.pipe(sourcemaps.write())
+	// 	.pipe(gulp.dest("dist"))
 });
 
 
