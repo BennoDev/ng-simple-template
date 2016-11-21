@@ -8,12 +8,12 @@ var sourcemaps = require("gulp-sourcemaps");
 var cssnano = require("gulp-cssnano");
 
 
-// --------------------------------------------------------------- //
-// This task bundles your application scripts into dist/scripts.js //
-// --------------------------------------------------------------- //
+// ---------------------------------------------------------------------------------------------------------------------- //
+// This task bundles your application scripts into dist/js/scripts.js and your third party scripts into dist/js/vendor.js //
+// ---------------------------------------------------------------------------------------------------------------------- //
 gulp.task("js", function() {
 
-  	gulp.src(["app/app.js", "app/config.js", "app/routes.js", "app/controllers/*.js", "app/services/*.js", "app/directives/*/*.js"])
+  	gulp.src(["app/*.js", "app/controllers/*.js", "app/services/*.js", "app/directives/*/*.js"])
 	  	.pipe(plumber({
 	        handleError: function (err) {
 	            console.log(err);
@@ -25,20 +25,20 @@ gulp.task("js", function() {
 		    .pipe(concat("scripts.js"))
 		    .pipe(uglify())
 		.pipe(sourcemaps.write())
-	    .pipe(gulp.dest("dist"))
+	    .pipe(gulp.dest("dist/js"))
 
-  	// 	gulp.src(["assets/js/*"])
-  	//   	.pipe(plumber({
-  	//     		handleError: function (err) {
-    //         		console.log(err);
-    //         		this.emit('end');
-    //     		}
-    // 		}))
-  	//   	.pipe(sourcemaps.init())
-  	//   	.pipe(concat("vendor.js"))
-	// 		.pipe(uglify())
-	// 	.pipe(sourcemaps.write())
-	// 	.pipe(gulp.dest("dist"))
+	gulp.src(["assets/js/*"])
+  	  	.pipe(plumber({
+  	    		handleError: function (err) {
+            		console.log(err);
+            		this.emit('end');
+        		}
+    		}))
+  	  	.pipe(sourcemaps.init())
+  	  		.pipe(concat("vendor.js"))
+			.pipe(uglify())
+		.pipe(sourcemaps.write())
+		.pipe(gulp.dest("dist/js"))
 });
 
 
@@ -48,11 +48,9 @@ gulp.task("js", function() {
 gulp.task("css", function() {
 
 	gulp.src(["assets/css/*.css"])
-		.pipe(sourcemaps.init())
-			.pipe(concat("styles.css"))
-			.pipe(cssnano())
-		.pipe(sourcemaps.write())
-		.pipe(gulp.dest("dist"))
+		.pipe(concat("styles.css"))
+		.pipe(cssnano())
+		.pipe(gulp.dest("dist/css"))
 });
 
 
@@ -71,7 +69,7 @@ gulp.task("build", function() {
 // ----------------------------------------------------------------------------------------- //
 gulp.task("watch", function() {
 
-  	gulp.watch(["app/config.js", "app/app.js", "app/routes.js", "app/controllers/*.js", "app/services/*.js", "app/directives/*/*.js"], batch(function(events, done) {
+  	gulp.watch(["app/*.js", "app/controllers/*.js", "app/services/*.js", "app/directives/*/*.js"], batch(function(events, done) {
   		gulp.start("js", done);
 	}));
 

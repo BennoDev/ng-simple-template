@@ -9,7 +9,6 @@ app.directive("testDirective", function() {
 			var vm = this;
 
 			function _init() {
-
 				vm.value = "This is a directive test value!";
 			}
 
